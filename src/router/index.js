@@ -18,11 +18,11 @@ const routes = [
   },
 
   {
-    path: '/libros/:id',
-    name: 'detalle-libro',
-    component: DetalleLibro,
-    props: true
-  }
+  path: "/libros/:id",
+  name: "detalle-libro",
+  component: () => import("../views/DetalleLibro.vue"),
+  props: true,
+},
 ]
 
 const router = createRouter({

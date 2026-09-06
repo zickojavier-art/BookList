@@ -31,7 +31,7 @@
 <script>
 import Libro from "../components/Libro.vue";
 import FormularioLibro from "../components/FormularioLibro.vue";
-
+import { libros } from "../data/libros.js";
 export default {
   name: "ListaLibros",
 
@@ -42,29 +42,9 @@ export default {
 
   data() {
     return {
-      libros: [
-        {
-          id: 1,
-          titulo: "Cien años de soledad",
-          autor: "Gabriel García Márquez",
-          categoria: "Novela",
-        },
-        {
-          id: 2,
-          titulo: "El principito",
-          autor: "Antoine de Saint-Exupéry",
-          categoria: "Fantasía",
-        },
-        {
-          id: 3,
-          titulo: "1984",
-          autor: "George Orwell",
-          categoria: "Distopía",
-        },
-      ],
+      libros: [...libros],
     };
   },
-
   methods: {
     agregarLibro(nuevoLibro) {
       nuevoLibro.id = Date.now();
