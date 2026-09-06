@@ -18,7 +18,6 @@
       <form @submit.prevent="guardarCambios">
         <div class="campo">
           <label for="titulo">Título</label>
-
           <input
             id="titulo"
             type="text"
@@ -30,7 +29,6 @@
 
         <div class="campo">
           <label for="autor">Autor</label>
-
           <input
             id="autor"
             type="text"
@@ -106,6 +104,8 @@ export default {
 
   data() {
     return {
+      librosActuales: [...libros],
+
       formulario: {
         titulo: "",
         autor: "",
@@ -115,13 +115,13 @@ export default {
     };
   },
 
-  computed: {
-    libro() {
-      return libros.find((libro) => libro.id === Number(this.id));
-    },
-  },
+  mounted() {
+    const librosGuardados = localStorage.getItem("booklist_libros");
 
-  created() {
+    if (librosGuardados) {
+      this.librosActuales = JSON.parse(librosGuardados);
+    }
+
     if (this.libro) {
       this.formulario = {
         titulo: this.libro.titulo,
@@ -132,16 +132,36 @@ export default {
     }
   },
 
+  computed: {
+    libro() {
+      return this.librosActuales.find((libro) => libro.id === Number(this.id));
+    },
+  },
+
   methods: {
     guardarCambios() {
-      this.libro.titulo = this.formulario.titulo;
-      this.libro.autor = this.formulario.autor;
-      this.libro.categoria = this.formulario.categoria;
-      this.libro.descripcion = this.formulario.descripcion;
+      const indice = this.librosActuales.findIndex(
+        (libro) => libro.id === Number(this.id),
+      );
 
-      localStorage.setItem("booklist_libros", JSON.stringify(libros));
+      if (indice === -1) {
+        return;
+      }
 
-      this.$router.push(`/libros/${this.libro.id}`);
+      this.librosActuales[indice] = {
+        ...this.librosActuales[indice],
+        titulo: this.formulario.titulo,
+        autor: this.formulario.autor,
+        categoria: this.formulario.categoria,
+        descripcion: this.formulario.descripcion,
+      };
+
+      localStorage.setItem(
+        "booklist_libros",
+        JSON.stringify(this.librosActuales),
+      );
+
+      this.$router.push(`/libros/${this.id}`);
     },
   },
 };

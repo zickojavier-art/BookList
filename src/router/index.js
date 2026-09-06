@@ -29,6 +29,11 @@ const routes = [
   component: () => import("../views/EditarLibro.vue"),
   props: true,
 },
+{
+  path: "/:pathMatch(.*)*",
+  name: "no-encontrado",
+  component: () => import("../views/NoEncontradoView.vue"),
+},
 ]
 
 const router = createRouter({

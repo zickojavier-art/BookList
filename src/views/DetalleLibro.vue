@@ -64,10 +64,23 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      librosActuales: [...libros],
+    };
+  },
+
+  mounted() {
+    const librosGuardados = localStorage.getItem("booklist_libros");
+
+    if (librosGuardados) {
+      this.librosActuales = JSON.parse(librosGuardados);
+    }
+  },
 
   computed: {
     libro() {
-      return libros.find((libro) => libro.id === Number(this.id));
+      return this.librosActuales.find((libro) => libro.id === Number(this.id));
     },
   },
 };
