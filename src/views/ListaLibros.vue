@@ -1,30 +1,28 @@
 <template>
-  <section class="lista-container">
-    <h1>📚 Catálogo de Libros</h1>
+  <section class="lista">
+    <div class="encabezado">
+      <div>
+        <p class="subtitulo">BOOKLIST</p>
+        <h1>Catálogo de libros</h1>
+        <p>Explora y administra nuestra colección.</p>
+      </div>
 
-    <p>Bienvenido, {{ usuario }}</p>
-
-    <!-- CONTADOR -->
-    <div class="contador">
-      <p>
-        Total de libros: <strong>{{ libros.length }}</strong>
-      </p>
-
-      <button @click="incrementarContador">Contador: {{ contador }}</button>
+      <span class="contador"> {{ libros.length }} libros </span>
     </div>
 
-    <!-- LISTA -->
-    <div v-if="libros.length > 0">
+    <div v-if="libros.length === 0" class="sin-libros">
+      <div class="icono">📚</div>
+      <h2>No hay libros registrados</h2>
+      <p>Agrega tu primer libro para comenzar.</p>
+    </div>
+
+    <div v-else class="libros-container">
       <Libro
         v-for="libro in libros"
         :key="libro.id"
         :libro="libro"
         @eliminar="eliminarLibro"
       />
-    </div>
-
-    <div v-else>
-      <p>📭 No hay libros disponibles.</p>
     </div>
   </section>
 </template>
@@ -41,52 +39,107 @@ export default {
 
   data() {
     return {
-      usuario: "Francisco",
-
-      contador: 0,
-
       libros: [
         {
           id: 1,
           titulo: "Cien años de soledad",
           autor: "Gabriel García Márquez",
           categoria: "Novela",
-          descripcion:
-            "Una de las obras más importantes de la literatura latinoamericana.",
-          destacado: true,
         },
-
         {
           id: 2,
-          titulo: "1984",
-          autor: "George Orwell",
-          categoria: "Ciencia ficción",
-          descripcion:
-            "Una novela distópica sobre una sociedad sometida a vigilancia.",
-          destacado: false,
-        },
-
-        {
-          id: 3,
           titulo: "El principito",
           autor: "Antoine de Saint-Exupéry",
           categoria: "Fantasía",
-          descripcion:
-            "Una historia sobre la amistad, el amor y la importancia de ver más allá de lo evidente.",
-          destacado: true,
+        },
+        {
+          id: 3,
+          titulo: "1984",
+          autor: "George Orwell",
+          categoria: "Distopía",
         },
       ],
     };
   },
 
   methods: {
-    incrementarContador() {
-      this.contador++;
-    },
-
     eliminarLibro(id) {
       this.libros = this.libros.filter((libro) => libro.id !== id);
     },
   },
 };
 </script>
+
+<style scoped>
+.lista {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 50px 20px;
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.subtitulo {
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+h1 {
+  font-size: 2.8rem;
+  margin: 0 0 10px;
+}
+
+.encabezado p {
+  margin: 0;
+}
+
+.contador {
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.libros-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.sin-libros {
+  text-align: center;
+  padding: 80px 20px;
+  border-radius: 15px;
+}
+
+.icono {
+  font-size: 4rem;
+  margin-bottom: 15px;
+}
+
+.sin-libros h2 {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 700px) {
+  .encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  .contador {
+    align-self: flex-start;
+  }
+}
+</style>
