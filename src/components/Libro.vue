@@ -3,23 +3,29 @@
     <div class="libro-icon">📖</div>
 
     <div class="libro-info">
-      <h3>{{ libro.titulo }}</h3>
-
-      <p class="autor">
-        {{ libro.autor }}
-      </p>
-
       <span class="categoria">
         {{ libro.categoria }}
       </span>
+
+      <h3>{{ libro.titulo }}</h3>
+
+      <p class="autor">✍️ {{ libro.autor }}</p>
+
+      <p v-if="libro.descripcion" class="descripcion">
+        {{ libro.descripcion }}
+      </p>
     </div>
 
     <div class="acciones">
       <RouterLink :to="`/libros/${libro.id}`" class="btn-detalle">
-        Ver detalle
+        Ver detalle →
       </RouterLink>
 
-      <button @click="$emit('eliminar', libro.id)" class="btn-eliminar">
+      <button
+        type="button"
+        @click="$emit('eliminar', libro.id)"
+        class="btn-eliminar"
+      >
         Eliminar
       </button>
     </div>
@@ -45,19 +51,32 @@ export default {
 .libro-card {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  transition: 0.3s;
+  gap: 22px;
+  padding: 24px;
+  margin-bottom: 18px;
+  background: white;
+  border: 1px solid #e5e1d8;
+  border-radius: 18px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .libro-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.1);
 }
 
 .libro-icon {
-  font-size: 2.5rem;
+  min-width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3eee3;
+  border-radius: 16px;
+  font-size: 2rem;
 }
 
 .libro-info {
@@ -65,19 +84,34 @@ export default {
 }
 
 .libro-info h3 {
-  margin: 0 0 6px;
+  margin: 7px 0 5px;
+  font-size: 1.35rem;
+  color: #1f2933;
 }
 
 .autor {
-  margin: 0 0 10px;
+  margin: 0 0 8px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.descripcion {
+  margin: 0;
+  color: #777;
+  font-size: 0.9rem;
+  line-height: 1.5;
 }
 
 .categoria {
   display: inline-block;
-  padding: 5px 10px;
+  padding: 5px 11px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  background: #eee8dc;
+  color: #665a45;
+  font-size: 0.75rem;
   font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .acciones {
@@ -88,23 +122,42 @@ export default {
 
 .btn-detalle,
 .btn-eliminar {
-  padding: 9px 14px;
-  border-radius: 6px;
+  padding: 10px 15px;
+  border-radius: 9px;
   border: none;
   cursor: pointer;
   text-decoration: none;
   font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-detalle {
+  background: #1f2933;
+  color: white;
+}
+
+.btn-detalle:hover {
+  background: #374151;
 }
 
 .btn-eliminar {
-  background: #dc3545;
-  color: white;
+  background: #f3dede;
+  color: #a32929;
+}
+
+.btn-eliminar:hover {
+  background: #eacaca;
 }
 
 @media (max-width: 700px) {
   .libro-card {
     flex-direction: column;
+    align-items: stretch;
     text-align: center;
+  }
+
+  .libro-icon {
+    margin: 0 auto;
   }
 
   .acciones {
@@ -115,6 +168,10 @@ export default {
   .btn-detalle,
   .btn-eliminar {
     width: 100%;
+  }
+
+  .descripcion {
+    text-align: left;
   }
 }
 </style>

@@ -1,7 +1,10 @@
 <template>
   <section class="detalle">
     <div v-if="libro" class="detalle-card">
-      <div class="icono">📖</div>
+      <div class="portada">
+        <div class="icono">📖</div>
+        <span>BOOKLIST</span>
+      </div>
 
       <div class="contenido">
         <span class="categoria">
@@ -10,12 +13,16 @@
 
         <h1>{{ libro.titulo }}</h1>
 
-        <p class="autor">
-          Autor: <strong>{{ libro.autor }}</strong>
-        </p>
+        <p class="autor">Autor</p>
+
+        <h2 class="nombre-autor">
+          {{ libro.autor }}
+        </h2>
+
+        <div class="separador"></div>
 
         <div class="descripcion">
-          <h2>Descripción</h2>
+          <h2>Sobre este libro</h2>
           <p>{{ libro.descripcion }}</p>
         </div>
 
@@ -32,6 +39,8 @@
     </div>
 
     <div v-else class="no-encontrado">
+      <div class="error-icon">📚</div>
+
       <h1>Libro no encontrado</h1>
 
       <p>El libro que buscas no existe en nuestro catálogo.</p>
@@ -73,17 +82,36 @@ export default {
 
 .detalle-card {
   display: flex;
-  gap: 40px;
-  padding: 40px;
-  border-radius: 20px;
+  gap: 50px;
+  padding: 45px;
+  background: white;
+  border: 1px solid #e5e1d8;
+  border-radius: 24px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.portada {
+  min-width: 220px;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #1f2933;
+  color: white;
+  border-radius: 18px;
+  box-shadow: 8px 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .icono {
-  font-size: 7rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 180px;
+  font-size: 6rem;
+  margin-bottom: 20px;
+}
+
+.portada span {
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  font-weight: bold;
 }
 
 .contenido {
@@ -94,36 +122,88 @@ export default {
   display: inline-block;
   padding: 7px 14px;
   border-radius: 20px;
-  font-size: 0.85rem;
+  background: #eee8dc;
+  color: #665a45;
+  font-size: 0.8rem;
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 h1 {
+  margin: 20px 0 15px;
   font-size: 3rem;
-  margin: 20px 0 10px;
+  line-height: 1.1;
+  color: #1f2933;
 }
 
 .autor {
-  font-size: 1.1rem;
-  margin-bottom: 35px;
+  margin: 0 0 4px;
+  color: #888;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nombre-autor {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #444;
+}
+
+.separador {
+  width: 60px;
+  height: 3px;
+  margin: 25px 0;
+  background: #1f2933;
 }
 
 .descripcion h2 {
-  font-size: 1.3rem;
   margin-bottom: 10px;
+  font-size: 1.3rem;
+  color: #1f2933;
 }
 
 .descripcion p {
-  line-height: 1.7;
+  margin: 0;
+  color: #666;
+  line-height: 1.8;
+}
+
+.acciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 35px;
+}
+
+.btn-editar,
+.volver {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-editar {
+  background: #1f2933;
+  color: white;
+}
+
+.btn-editar:hover {
+  background: #374151;
+  transform: translateY(-2px);
 }
 
 .volver {
-  display: inline-block;
-  margin-top: 30px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
+  border: 1px solid #ddd;
+  color: #444;
+}
+
+.volver:hover {
+  background: #f5f5f5;
 }
 
 .no-encontrado {
@@ -131,41 +211,53 @@ h1 {
   padding: 100px 20px;
 }
 
+.error-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.no-encontrado h1 {
+  font-size: 2.2rem;
+}
+
+.no-encontrado p {
+  color: #777;
+}
+
 @media (max-width: 700px) {
+  .detalle {
+    padding: 30px 15px;
+  }
+
   .detalle-card {
     flex-direction: column;
     padding: 25px;
+    gap: 30px;
+  }
+
+  .portada {
+    min-width: auto;
+    width: 100%;
+    height: 240px;
   }
 
   .icono {
-    min-width: auto;
     font-size: 5rem;
   }
 
   h1 {
     font-size: 2.2rem;
   }
-}
-.acciones {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
 
-.acciones a {
-  text-decoration: none;
-}
+  .acciones {
+    flex-direction: column;
+  }
 
-.btn-editar {
-  display: inline-block;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-weight: bold;
-  transition: 0.3s;
-}
-
-.btn-editar:hover {
-  transform: translateY(-2px);
+  .btn-editar,
+  .volver {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
 }
 </style>
