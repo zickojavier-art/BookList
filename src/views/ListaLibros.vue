@@ -1,5 +1,6 @@
 <template>
   <section class="lista">
+    <FormularioLibro @agregar="agregarLibro" />
     <div class="encabezado">
       <div>
         <p class="subtitulo">BOOKLIST</p>
@@ -29,12 +30,14 @@
 
 <script>
 import Libro from "../components/Libro.vue";
+import FormularioLibro from "../components/FormularioLibro.vue";
 
 export default {
   name: "ListaLibros",
 
   components: {
     Libro,
+    FormularioLibro,
   },
 
   data() {
@@ -63,6 +66,12 @@ export default {
   },
 
   methods: {
+    agregarLibro(nuevoLibro) {
+      nuevoLibro.id = Date.now();
+
+      this.libros.push(nuevoLibro);
+    },
+
     eliminarLibro(id) {
       this.libros = this.libros.filter((libro) => libro.id !== id);
     },
