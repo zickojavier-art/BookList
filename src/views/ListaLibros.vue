@@ -112,66 +112,130 @@ export default {
 </script>
 <style scoped>
 .lista {
-  max-width: 1100px;
+  max-width: 1150px;
   margin: 0 auto;
-  padding: 50px 20px;
+  padding: 60px 20px 80px;
 }
 
+/* ENCABEZADO */
 .encabezado {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
   gap: 20px;
+  margin-bottom: 25px;
 }
 
 .subtitulo {
-  font-size: 0.8rem;
+  margin: 0 0 8px;
+  font-size: 0.75rem;
   letter-spacing: 4px;
-  font-weight: bold;
-  margin-bottom: 8px;
+  font-weight: 700;
+  color: #8b7d6b;
 }
 
 h1 {
-  font-size: 2.8rem;
   margin: 0 0 10px;
+  color: #1f2933;
+  font-size: 2.8rem;
+  line-height: 1.1;
 }
 
 .encabezado p {
   margin: 0;
+  color: #777;
+  font-size: 1.05rem;
 }
 
+/* CONTADOR */
 .contador {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
   padding: 10px 18px;
-  border-radius: 20px;
-  font-weight: bold;
+  border: 1px solid #e1dbd0;
+  border-radius: 30px;
+  background: #f8f6f1;
+  color: #4a4a4a;
+  font-size: 0.9rem;
+  font-weight: 700;
   white-space: nowrap;
 }
 
+/* FILTROS */
+.filtros {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 14px;
+  margin: 0 0 40px;
+}
+
+.filtros input,
+.filtros select {
+  width: 100%;
+  padding: 15px 17px;
+  box-sizing: border-box;
+  border: 1px solid #ddd7cd;
+  border-radius: 12px;
+  background: #fff;
+  color: #333;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.filtros input::placeholder {
+  color: #999;
+}
+
+.filtros input:focus,
+.filtros select:focus {
+  border-color: #8b7d6b;
+  box-shadow: 0 0 0 3px rgba(139, 125, 107, 0.1);
+}
+
+/* CONTENEDOR DE LIBROS */
 .libros-container {
   display: flex;
   flex-direction: column;
+  gap: 18px;
 }
 
+/* SIN RESULTADOS */
 .sin-libros {
-  text-align: center;
   padding: 80px 20px;
-  border-radius: 15px;
+  border: 1px dashed #d8d1c5;
+  border-radius: 20px;
+  background: #faf9f6;
+  text-align: center;
 }
 
 .icono {
-  font-size: 4rem;
   margin-bottom: 15px;
+  font-size: 4rem;
 }
 
 .sin-libros h2 {
-  margin-bottom: 10px;
+  margin: 0 0 10px;
+  color: #333;
 }
 
+.sin-libros p {
+  margin: 0;
+  color: #888;
+}
+
+/* TABLET */
 @media (max-width: 700px) {
+  .lista {
+    padding: 40px 15px 60px;
+  }
+
   .encabezado {
-    flex-direction: column;
-    align-items: flex-start;
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 
   h1 {
@@ -179,29 +243,35 @@ h1 {
   }
 
   .contador {
-    align-self: flex-start;
+    justify-self: start;
+  }
+
+  .filtros {
+    grid-template-columns: 1fr;
   }
 }
 
-.filtros {
-  display: flex;
-  gap: 15px;
-  margin: 25px 0 30px;
-}
+/* CELULAR */
+@media (max-width: 450px) {
+  .lista {
+    padding-top: 30px;
+  }
 
-.filtros input,
-.filtros select {
-  flex: 1;
-  padding: 13px 15px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  box-sizing: border-box;
-}
+  h1 {
+    font-size: 1.9rem;
+  }
 
-@media (max-width: 700px) {
+  .encabezado p {
+    font-size: 0.95rem;
+  }
+
   .filtros {
-    flex-direction: column;
+    margin-bottom: 30px;
+  }
+
+  .filtros input,
+  .filtros select {
+    padding: 13px 14px;
   }
 }
 </style>
