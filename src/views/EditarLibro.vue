@@ -111,14 +111,12 @@ export default {
 
   methods: {
     guardarCambios() {
-      if (!this.libro) {
-        return;
-      }
-
       this.libro.titulo = this.formulario.titulo;
       this.libro.autor = this.formulario.autor;
       this.libro.categoria = this.formulario.categoria;
       this.libro.descripcion = this.formulario.descripcion;
+
+      localStorage.setItem("booklist_libros", JSON.stringify(libros));
 
       this.$router.push(`/libros/${this.libro.id}`);
     },
