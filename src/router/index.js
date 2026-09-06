@@ -23,6 +23,12 @@ const routes = [
   component: () => import("../views/DetalleLibro.vue"),
   props: true,
 },
+{
+  path: "/libros/:id/editar",
+  name: "editar-libro",
+  component: () => import("../views/EditarLibro.vue"),
+  props: true,
+},
 ]
 
 const router = createRouter({

@@ -19,9 +19,15 @@
           <p>{{ libro.descripcion }}</p>
         </div>
 
-        <RouterLink to="/libros" class="volver">
-          ← Volver al catálogo
-        </RouterLink>
+        <div class="acciones">
+          <RouterLink :to="`/libros/${libro.id}/editar`" class="btn-editar">
+            ✏️ Editar libro
+          </RouterLink>
+
+          <RouterLink to="/libros" class="volver">
+            ← Volver al catálogo
+          </RouterLink>
+        </div>
       </div>
     </div>
 
@@ -139,5 +145,27 @@ h1 {
   h1 {
     font-size: 2.2rem;
   }
+}
+.acciones {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.acciones a {
+  text-decoration: none;
+}
+
+.btn-editar {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-editar:hover {
+  transform: translateY(-2px);
 }
 </style>
